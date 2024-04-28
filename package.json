@@ -8,6 +8,7 @@
   "types": "index.d.ts",
   "scripts": {
   },
+  "files": ["./index.mjs","./index.d.ts"],
   "keywords": ["phecda-server","unplugin","bundle server"],
   "author": "",
   "license": "MIT",
