@@ -16,10 +16,7 @@ jobs:
         with:
           node-version: '21.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: corepack enable
 
-      - run: npm i -g @antfu/ni
-      - run: nci
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
