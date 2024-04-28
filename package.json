@@ -1,0 +1,17 @@
+{
+  "name": "unplugin-phecda-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "module":"index.mjs",
+  "type":"module",
+  "types": "index.d.ts",
+  "scripts": {
+  },
+  "keywords": ["phecda-server","unplugin","bundle server"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "unplugin": "^1.10.1"
+  }
+}
