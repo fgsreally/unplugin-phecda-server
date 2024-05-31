@@ -1,58 +1,59 @@
-import { isAbsolute } from 'path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
-import fs from 'fs'
-import { createUnplugin } from 'unplugin'
-export default createUnplugin(options => ({
-  name: 'unplugin-phecda-server',
-  enforce: 'pre',
+import { isAbsolute } from "path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import fs from "fs";
+import { createUnplugin } from "unplugin";
+export default createUnplugin((options) => ({
+  name: "unplugin-phecda-server",
+  enforce: "pre",
   async buildStart() {
-    const { initialize } = await import('phecda-server/register/loader.mjs')
+    const { initialize } = await import("phecda-server/register/loader.mjs");
 
-    await initialize()
+    await initialize();
   },
 
   async resolveId(id, i) {
-    if (id.includes('node_modules'))
-      return
-    const { resolve } = await import('phecda-server/register/loader.mjs')
+    if (id.includes("node_modules")) return;
+    const { resolve } = await import("phecda-server/register/loader.mjs");
     const { url } = await resolve(
       id,
       { parentURL: i && pathToFileURL(i).href },
       () => {
-        return {}
-      },
-    )
+        return {};
+      }
+    );
 
     if (url) {
-      if (/^file:\/\/\//.test(url))
-        return fileURLToPath(url)
-      return url
+      if (/^file:\/\/\//.test(url)) return fileURLToPath(url);
+      return url;
     }
   },
   async load(id) {
-    if (!isAbsolute(id))
-      return
-    if (id.includes('node_modules'))
-      return
+    if (!isAbsolute(id)) return;
+    if (id.includes("node_modules")) return;
 
-    const { load } = await import('phecda-server/register/loader.mjs')
+    const { load } = await import("phecda-server/register/loader.mjs");
 
     const { source } = await load(id, {}, async () => {
-      const source = await fs.promises.readFile(id)
+      const source = await fs.promises.readFile(id);
       return {
         source,
-      }
-    })
+      };
+    });
 
-    return Buffer.from(source).toString()
+    return Buffer.from(source).toString();
   },
 
   vite: {
+    apply: "build",
     config() {
       return {
-        build: { ssr: true },
-      }
+        esbuild:false,
+        build: {
+           ssr: true,
+          
+         },
+      };
     },
   },
   // more hooks coming
-}))
+}));
