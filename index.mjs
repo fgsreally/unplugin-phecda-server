@@ -6,7 +6,6 @@ export default createUnplugin(options => ({
   name: 'unplugin-phecda-server',
   enforce: 'pre',
   async buildStart() {
-    // @ts-expect-error loader without dts
     const { initialize } = await import('phecda-server/register/loader.mjs')
 
     await initialize()
@@ -15,7 +14,6 @@ export default createUnplugin(options => ({
   async resolveId(id, i) {
     if (id.includes('node_modules'))
       return
-    // @ts-expect-error loader without dts
     const { resolve } = await import('phecda-server/register/loader.mjs')
     const { url } = await resolve(
       id,
@@ -36,7 +34,6 @@ export default createUnplugin(options => ({
       return
     if (id.includes('node_modules'))
       return
-    // @ts-expect-error loader without dts
 
     const { load } = await import('phecda-server/register/loader.mjs')
 
