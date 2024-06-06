@@ -31,7 +31,6 @@ export default createUnplugin((options) => ({
     }
   },
   async load(id) {
-    if (!isAbsolute(id)) return;
     if (id.includes("node_modules")) return;
 
     const { load } = await import("phecda-server/register/loader.mjs");
