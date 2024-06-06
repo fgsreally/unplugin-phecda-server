@@ -2,10 +2,13 @@ import { isAbsolute } from "path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import fs from "fs";
 import { createUnplugin } from "unplugin";
+
 export default createUnplugin((options) => ({
   name: "unplugin-phecda-server",
   enforce: "pre",
   async buildStart() {
+    process.env.PS_HMR_BAN = "true";
+
     const { initialize } = await import("phecda-server/register/loader.mjs");
 
     await initialize();
@@ -47,11 +50,10 @@ export default createUnplugin((options) => ({
     apply: "build",
     config() {
       return {
-        esbuild:false,
+        esbuild: false,
         build: {
-           ssr: true,
-          
-         },
+          ssr: true,
+        },
       };
     },
   },
