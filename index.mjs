@@ -33,16 +33,18 @@ export default createUnplugin((options) => ({
   async load(id) {
     if (id.includes("node_modules")) return;
 
-    const { load } = await import("phecda-server/register/loader.mjs");
+    try {// if load internal virtual files provided by webpack/vite... throw err and we skip
+      const { load } = await import("phecda-server/register/loader.mjs");
 
-    const { source } = await load(id, {}, async () => {
-      const source = await fs.promises.readFile(id);
-      return {
-        source,
-      };
-    });
+      const { source } = await load(id, {}, async () => {
+        const source = await fs.promises.readFile(id);
+        return {
+          source,
+        };
+      });
 
-    return Buffer.from(source).toString();
+      return Buffer.from(source).toString();
+    } catch (e) {}
   },
 
   vite: {
