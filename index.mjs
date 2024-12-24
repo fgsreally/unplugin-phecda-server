@@ -36,7 +36,9 @@ export default createUnplugin((options) => ({
     try {// if load internal virtual files provided by webpack/vite... throw err and we skip
       const { load } = await import("phecda-server/register/loader.mjs");
 
-      const { source } = await load(id, {}, async () => {
+      const { source } = await load(id, {
+        importAttributes:{}
+      }, async () => {
         const source = await fs.promises.readFile(id);
         return {
           source,
@@ -44,16 +46,16 @@ export default createUnplugin((options) => ({
       });
 
       return Buffer.from(source).toString();
-    } catch (e) {}
+    } catch (e) { }
   },
 
   vite: {
     apply: "build",
-    config() {
+    config(config) {
       return {
         esbuild: false,
         build: {
-          ssr: true,
+          ssr: config.build?.ssr || true,
         },
       };
     },
