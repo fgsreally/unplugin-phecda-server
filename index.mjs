@@ -1,4 +1,3 @@
-import { isAbsolute } from "path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import fs from "fs";
 import { createUnplugin } from "unplugin";
