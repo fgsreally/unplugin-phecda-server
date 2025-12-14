@@ -1,6 +1,6 @@
 {
   "name": "unplugin-phecda-server",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "unplugin that use phecda-server loader in bundler",
   "repository": "https://github.com/fgsreally/unplugin-phecda-server",
   "main": "index.mjs",
@@ -21,6 +21,6 @@
     "unplugin": "^1.10.1"
   },
   "devDependencies": {
-    "phecda-server": "^8.0.0"
+    "phecda-server": "^8.4.0"
   }
 }

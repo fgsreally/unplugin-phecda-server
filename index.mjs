@@ -2,7 +2,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import fs from "fs";
 import { createUnplugin } from "unplugin";
 
-export default createUnplugin((options) => ({
+export default createUnplugin((_options) => ({
   name: "unplugin-phecda-server",
   enforce: "pre",
   async buildStart() {
@@ -49,7 +49,7 @@ export default createUnplugin((options) => ({
   },
 
   vite: {
-    apply: "build",
+    // apply: "build",
     config(config) {
       return {
         esbuild: false,
